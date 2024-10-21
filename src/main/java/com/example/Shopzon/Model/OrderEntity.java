@@ -17,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @FieldDefaults(level= AccessLevel.PRIVATE)
+@Builder
 public class OrderEntity {
 
     @Id
@@ -24,7 +25,7 @@ public class OrderEntity {
     int id;
 
     @Column(nullable = false)
-    int orderNo;//random uuid
+    String orderNo;//random uuid
 
     @Column(nullable = false)
     double totalValue;

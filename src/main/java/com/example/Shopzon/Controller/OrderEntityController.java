@@ -1,6 +1,7 @@
 package com.example.Shopzon.Controller;
 
-import com.example.Shopzon.Model.OrderEntity;
+import com.example.Shopzon.DTO.Request.OrderEntityRequest;
+import com.example.Shopzon.DTO.Response.OrderEntityResponse;
 import com.example.Shopzon.Service.OrderEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,14 @@ public class OrderEntityController {
     @Autowired
     OrderEntityService orderEntityService;
     @PostMapping("/add")
-    public ResponseEntity addOrder(@RequestBody OrderEntity orderEntity){
-        OrderEntity savedOrderEntity= orderEntityService.addOrder(orderEntity);
-        return new ResponseEntity<>(savedOrderEntity, HttpStatus.CREATED);
+    public ResponseEntity placeOrder(@RequestBody OrderEntityRequest orderEntityRequest){
+        try{
+            OrderEntityResponse orderEntityResponse=orderEntityService.placeOrder(orderEntityRequest);
+            return new ResponseEntity(orderEntityResponse,HttpStatus.CREATED);
+        }catch(Exception e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
+
+        }
+
     }
 }
